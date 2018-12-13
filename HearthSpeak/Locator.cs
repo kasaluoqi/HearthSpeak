@@ -9,16 +9,15 @@ namespace HearthSpeak
 {
     class Locator
     {
-
         private LogFileParser parser;
         private double CreatureSep;
         private double screenWidth;
         private double screenHeight;
-        public Locator(LogFileParser parser)
+        public Locator(LogFileParser parser, double width, double height)
         {
             this.parser = parser;
-            this.screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            this.screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            this.screenWidth = width;
+            this.screenHeight = height;
             CreatureSep = .0731;
         }
 

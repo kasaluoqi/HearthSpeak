@@ -11,17 +11,19 @@ namespace HearthSpeak
 {
     class Recognizer
     {
-
         GameManager gameManager;
         public SpeechRecognitionEngine Engine;
-
-        public Recognizer()
+        double width;
+        double height;
+        public Recognizer(double width, double height)
         {
-            gameManager = new GameManager();
-            Engine = new SpeechRecognitionEngine();
+            this.width = width;
+            this.height = height;
+            gameManager = new GameManager(width, height);
+            Engine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             Engine.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(recognizer_SpeechRecognized);
             Engine.SetInputToDefaultAudioDevice();
-            AddGrammars(Engine);
+            //AddGrammars(Engine);
             Engine.RecognizeAsync(RecognizeMode.Multiple);
         }
         Grammar BuildGrammar()
@@ -73,7 +75,8 @@ namespace HearthSpeak
             }
         }
 
-        void AddGrammars(SpeechRecognitionEngine recognizer)
+        /*
+         * void AddGrammars(SpeechRecognitionEngine recognizer)
         {
             Grammar dictationGrammar = BuildGrammar();
             Grammar mulliganGrammer = MakeRepeatedGrammar(new string[] { "mulligan" }, new string[] { "1", "2", "3", "4", "confirm" }, 99);
@@ -84,6 +87,7 @@ namespace HearthSpeak
             recognizer.LoadGrammar(moveGrammar);
             recognizer.LoadGrammar(removeGrammar);
         }
+        */
 
         Grammar MakeRepeatedGrammar(string[] firstWords, string[] choicesArr, int choicesMax = 99)
         {
@@ -129,7 +133,7 @@ namespace HearthSpeak
             System.Console.WriteLine("Listening for input. Press Enter to stop listening.");
             Console.ReadLine();
             Engine.RecognizeAsyncCancel();
-            new MainMenu();
+            new MainMenu(width,height);
         }
 
     }

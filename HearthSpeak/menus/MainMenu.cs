@@ -9,8 +9,12 @@ namespace HearthSpeak.menus
 {
     class MainMenu : BaseMenu
     {
-        public MainMenu()
+        double width;
+        double height;
+        public MainMenu(double width, double height)
         {
+            this.width = width;
+            this.height = height;
             Add("Start Listening", StartListening);
             //Add("Change Screen Resolution", AdjustResolution);
             Add("Quit", ExitApplication);
@@ -31,7 +35,7 @@ namespace HearthSpeak.menus
 
         public void StartListening()
         {
-            var recognizer = new Recognizer();
+            var recognizer = new Recognizer(width, height);
             recognizer.ListenIO();
         }
 

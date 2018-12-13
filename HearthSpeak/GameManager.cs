@@ -15,12 +15,12 @@ namespace HearthSpeak
         private Locator locator;
         private int ClickDelay;
 
-        public GameManager()
+        public GameManager(double width, double height)
         {
             parser = new LogFileParser();
             parser.StartWatching();
             ClickDelay = 100;
-            locator = new Locator(parser);
+            locator = new Locator(parser, width, height);
             ActionMap = new Dictionary<Regex, Action<List<string>>>
             {
                 [new Regex(@"\Aposition")] = GetPosition,
